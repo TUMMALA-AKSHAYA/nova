@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//////////////////////////////////////////////////////////
+// ENUMS
+//////////////////////////////////////////////////////////
+
+enum IndustryType {
+  RESTAURANT
+  RETAIL
+  MANUFACTURING
+  CAFE
+  OTHER
+}
+
+enum StoreStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum ProductStatus {
+  ACTIVE
+  DISCONTINUED
+}
+
+//////////////////////////////////////////////////////////
+// ORGANIZATION
+//////////////////////////////////////////////////////////
+
+model Organization {
+  id       String       @id @default(uuid())
+  name     String
+  industry IndustryType
+  email    String?
+  phone    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  stores   Store[]
+  products Product[]
+}
+
+//////////////////////////////////////////////////////////
+// STORE
+//////////////////////////////////////////////////////////
+
+model Store {
+  id String @id @default(uuid())
+
+  organizationId String
+
+  name    String
+  address String?
+  manager String?
+
+  status StoreStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@index([organizationId])
+}
+
+//////////////////////////////////////////////////////////
+// PRODUCT
+//////////////////////////////////////////////////////////
+
+model Product {
+  id String @id @default(uuid())
+
+  organizationId String
+
+  sku      String
+  name     String
+  category String?
+  unit     String?
+
+  costPrice    Float
+  sellingPrice Float
+
+  barcode String?
+
+  status ProductStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@unique([organizationId, sku])
+  @@index([organizationId])
+}
