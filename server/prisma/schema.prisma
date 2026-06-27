@@ -99,3 +99,14 @@ model Product {
   @@unique([organizationId, sku])
   @@index([organizationId])
 }
+
+model HeaderMapping {
+  id String @id @default(cuid())
+
+  originalHeader String
+  mappedField    String
+
+  confidence Float
+
+  createdAt DateTime @default(now())
+}

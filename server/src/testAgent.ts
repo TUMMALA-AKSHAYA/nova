@@ -2,10 +2,11 @@ import { mapColumns } from "./agents/columnMappingAgent";
 
 const headers = [
   "Product",
-  "Item Name",
-  "Inventory",
-  "Unit Price",
-  "Primary SKU",
+  "Prodct",
+  "Dish",
+  "Closing Balance",
+  "Purchase Cost",
+  "Catgory",
 ];
 
-console.log(mapColumns(headers));
+console.log(JSON.stringify(mapColumns(headers), null, 2));
