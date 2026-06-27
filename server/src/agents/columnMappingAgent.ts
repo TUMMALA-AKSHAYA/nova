@@ -1,37 +1,21 @@
-// NOVA Column Mapping Agent
-// Converts different client column names into NOVA standard fields
+import { normalizeHeader } from "../engines/mapping/headerNormalizer";
+import { dictionaryMatch } from "../engines/mapping/dictionaryMatcher";
 
-export const COLUMN_MAPPINGS: Record<string, string> = {
-  // Product
-  "product": "productName",
-  "productname": "productName",
-  "item": "productName",
-  "itemname": "productName",
-  "fooditem": "productName",
-  "material": "productName",
-  "sku": "productName",
-  "menuitem": "productName",
+export interface ColumnMappingResult {
+  original: string;
+  normalized: string;
+  mappedField: string | null;
+}
 
-  // Quantity
-  "qty": "quantity",
-  "quantity": "quantity",
-  "stock": "quantity",
-  "inventory": "quantity",
-  "available": "quantity",
-  "balance": "quantity",
-  "remaining": "quantity",
+export function mapColumns(headers: string[]): ColumnMappingResult[] {
+  return headers.map((header) => {
+    const normalized = normalizeHeader(header);
+    const mappedField = dictionaryMatch(normalized);
 
-  // Price
-  "price": "price",
-  "sellingprice": "price",
-  "unitprice": "price",
-  "mrp": "price",
-  "rate": "price",
-  "unitcost": "price",
-  "buyingprice": "price",
-
-  // Category
-  "category": "category",
-  "type": "category",
-  "department": "category",
-};
+    return {
+      original: header,
+      normalized,
+      mappedField,
+    };
+  });
+}
