@@ -1,9 +1,11 @@
 import ExecutiveBriefCard from "../../components/cards/ExecutiveBriefCard";
 import MetricCard from "../../components/cards/MetricCard";
-//import DecisionCard from "../../components/cards/DecisionCard";
-import DecisionSection from "../../components/cards/DecisionSection";
 import BusinessHealthTrend from "../../components/charts/BusinessHealthTrend";
 import BusinessSnapshot from "../../components/cards/BusinessSnapshot";
+import TodayDecisions from "../../components/cards/TodayDecisions";
+import RevenueTrend from "../../components/charts/RevenueTrend";
+import ProductsAtRisk from "../../components/cards/ProductsAtRisk";
+
 export default function Dashboard() {
   return (
     <div className="space-y-8">
@@ -50,10 +52,18 @@ export default function Dashboard() {
           trend="neutral"
           change="Stable"
         />
-    <DecisionSection />
-    <BusinessHealthTrend />
-    <BusinessSnapshot />
+
       </div>
+
+      <TodayDecisions />
+
+      <BusinessHealthTrend />
+
+      <RevenueTrend />
+
+      <BusinessSnapshot />
+
+      <ProductsAtRisk />
 
     </div>
   );

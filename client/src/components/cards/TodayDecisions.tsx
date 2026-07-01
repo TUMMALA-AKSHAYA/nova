@@ -1,6 +1,7 @@
 import DecisionCard from "./DecisionCard";
 
-export default function DecisionSection() {
+//export default function DecisionSection() {
+export default function TodayDecisions() {
   return (
     <section className="space-y-5">
 
