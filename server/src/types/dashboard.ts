@@ -1,4 +1,14 @@
-import { TodayDecision } from "../engines/business/executiveBriefEngine";
+import type { TodayDecision } from "./todayDecision";
+
+export interface Dashboard {
+  executiveBrief: ExecutiveBrief;
+  businessHealth: DashboardBusinessHealth;
+  metrics: DashboardMetrics;
+  todayDecisions: TodayDecision[];
+  productsAtRisk: ProductAtRisk[];
+  revenueTrend: RevenuePoint[];
+  businessHealthTrend: BusinessHealthPoint[];
+}
 
 export interface DashboardMetrics {
   totalRevenueAtRisk: number;
@@ -13,12 +23,44 @@ export interface DashboardBusinessHealth {
   status: string;
 }
 
+export interface ExecutiveBrief {
+  greeting: string;
+  headline: string;
+  description: string;
+  confidence: number;
+  updatedAt: string;
+}
+
+export interface ProductAtRisk {
+  id: string;
+  name: string;
+  daysLeft: number;
+  status: "HEALTHY" | "LOW" | "CRITICAL";
+  revenueRisk: number;
+}
+
+export interface RevenueTrendPoint {
+  label: string;
+  revenue: number;
+}
+
+export interface BusinessHealthTrendPoint {
+  label: string;
+  score: number;
+}
+
 export interface Dashboard {
+  executiveBrief: ExecutiveBrief;
+
   businessHealth: DashboardBusinessHealth;
 
   metrics: DashboardMetrics;
 
   todayDecisions: TodayDecision[];
 
-  summary: string;
+  productsAtRisk: ProductAtRisk[];
+
+  revenueTrend: RevenueTrendPoint[];
+
+  businessHealthTrend: BusinessHealthTrendPoint[];
 }

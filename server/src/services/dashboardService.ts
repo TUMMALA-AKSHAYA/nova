@@ -1,7 +1,7 @@
 import { Dashboard } from "../types/dashboard";
 
 import { buildInventoryInsight } from "../builders/inventoryInsightBuilder";
-
+import { buildProductsAtRisk } from "../builders/dashboard/productsAtRiskBuilder";
 import {
   calculateBusinessHealth,
   getBusinessHealthGrade,
@@ -42,42 +42,61 @@ export function getDashboard(): Dashboard {
       insights,
       averageBusinessHealth
     );
-
+  const productsAtRisk =
+  buildProductsAtRisk(insights);
   // Dashboard Response
+
   return {
 
-    businessHealth: {
+  executiveBrief: {
 
-      score: averageBusinessHealth,
+    greeting: "GOOD AFTERNOON",
 
-      grade: overallHealth.grade,
+    headline: executiveBrief.summary,
 
-      status: overallHealth.status,
+    description: `Business Health ${averageBusinessHealth}/100`,
 
-    },
+    confidence: 95,
 
-    metrics: {
+    updatedAt: "Just now",
 
-      totalRevenueAtRisk:
-        executiveBrief.totalRevenueAtRisk,
+  },
 
-      totalProfitAtRisk:
-        executiveBrief.totalProfitAtRisk,
+  businessHealth: {
 
-      totalBlockedCapital:
-        executiveBrief.totalBlockedCapital,
+    score: averageBusinessHealth,
 
-      totalWorkingCapitalLocked:
-        executiveBrief.totalWorkingCapitalLocked,
+    grade: overallHealth.grade,
 
-    },
+    status: overallHealth.status,
 
-    todayDecisions:
-      executiveBrief.todayDecisions,
+  },
 
-    summary:
-      executiveBrief.summary,
+  metrics: {
 
-  };
+    totalRevenueAtRisk:
+      executiveBrief.totalRevenueAtRisk,
+
+    totalProfitAtRisk:
+      executiveBrief.totalProfitAtRisk,
+
+    totalBlockedCapital:
+      executiveBrief.totalBlockedCapital,
+
+    totalWorkingCapitalLocked:
+      executiveBrief.totalWorkingCapitalLocked,
+
+  },
+
+  todayDecisions:
+    executiveBrief.todayDecisions,
+
+  productsAtRisk: productsAtRisk,
+
+  revenueTrend: [],
+
+  businessHealthTrend: [],
+
+};
 
 }
