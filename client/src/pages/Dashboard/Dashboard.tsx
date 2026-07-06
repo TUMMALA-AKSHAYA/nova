@@ -1,69 +1,79 @@
+import { useEffect, useState } from "react";
+
 import ExecutiveBriefCard from "../../components/cards/ExecutiveBriefCard";
-import MetricCard from "../../components/cards/MetricCard";
-import BusinessHealthTrend from "../../components/charts/BusinessHealthTrend";
 import BusinessSnapshot from "../../components/cards/BusinessSnapshot";
 import TodayDecisions from "../../components/cards/TodayDecisions";
+import BusinessHealthTrend from "../../components/charts/BusinessHealthTrend";
 import RevenueTrend from "../../components/charts/RevenueTrend";
 import ProductsAtRisk from "../../components/cards/ProductsAtRisk";
 
+import { getDashboard } from "../../services/dashboardService";
+import type { Dashboard as DashboardType } from "../../types/dashboard";
+
 export default function Dashboard() {
+  const [dashboard, setDashboard] = useState<DashboardType | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function loadDashboard() {
+      try {
+        const data = await getDashboard();
+        setDashboard(data);
+      } catch {
+        setError("Failed to load dashboard.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadDashboard();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="p-10 text-slate-500">
+        Loading dashboard...
+      </div>
+    );
+  }
+
+  if (error || !dashboard) {
+    return (
+      <div className="p-10 text-red-500">
+        {error || "Dashboard not found."}
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8">
 
       <ExecutiveBriefCard
-        greeting="GOOD AFTERNOON"
-        headline="Coffee Beans need your attention."
-        description="Your inventory will run out before the supplier delivers. Protect ₹2,400 in revenue by placing a reorder today."
-        actionLabel="Reorder Now"
-        confidence={95}
-        updatedAt="2 mins ago"
+        greeting={dashboard.executiveBrief.greeting}
+        headline={dashboard.executiveBrief.headline}
+        description={dashboard.executiveBrief.description}
+        actionLabel="View Decisions"
+        confidence={dashboard.executiveBrief.confidence}
+        updatedAt={dashboard.executiveBrief.updatedAt}
       />
 
-      <div className="grid grid-cols-4 gap-6">
+      <BusinessSnapshot
+        businessHealth={dashboard.businessHealth}
+        metrics={dashboard.metrics}
+      />
 
-        <MetricCard
-          title="Business Health"
-          value="79 /100"
-          subtitle="Good"
-          trend="up"
-          change="+5 this week"
-        />
-
-        <MetricCard
-          title="Revenue At Risk"
-          value="₹2,400"
-          subtitle="Critical"
-          trend="down"
-          change="-₹800 vs yesterday"
-        />
-
-        <MetricCard
-          title="Blocked Capital"
-          value="₹44,440"
-          subtitle="Recoverable"
-          trend="up"
-          change="Promotion Available"
-        />
-
-        <MetricCard
-          title="Working Capital"
-          value="₹31,000"
-          subtitle="Healthy"
-          trend="neutral"
-          change="Stable"
-        />
-
-      </div>
-
-      <TodayDecisions />
+      <TodayDecisions
+        decisions={dashboard.todayDecisions}
+      />
 
       <BusinessHealthTrend />
 
       <RevenueTrend />
 
-      <BusinessSnapshot />
-
-      <ProductsAtRisk />
+      <ProductsAtRisk
+        products={dashboard.productsAtRisk}
+      />
 
     </div>
   );

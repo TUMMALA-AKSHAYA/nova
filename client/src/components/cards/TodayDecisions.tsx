@@ -1,7 +1,13 @@
 import DecisionCard from "./DecisionCard";
+import type { TodayDecision } from "../../types/todayDecision";
 
-//export default function DecisionSection() {
-export default function TodayDecisions() {
+interface TodayDecisionsProps {
+  decisions: TodayDecision[];
+}
+
+export default function TodayDecisions({
+  decisions,
+}: TodayDecisionsProps) {
   return (
     <section className="space-y-5">
 
@@ -21,32 +27,17 @@ export default function TodayDecisions() {
 
       <div className="space-y-4">
 
-        <DecisionCard
-          title="REORDER"
-          product="Coffee Beans"
-          reason="Stock will run out before supplier delivery."
-          impact="Protect ₹2,400"
-          priority="CRITICAL"
-          confidence={95}
-        />
-
-        <DecisionCard
-          title="NO ACTION"
-          product="Rice"
-          reason="Inventory level is healthy."
-          impact="₹0 impact"
-          priority="LOW"
-          confidence={96}
-        />
-
-        <DecisionCard
-          title="NO ACTION"
-          product="Vanilla Syrup"
-          reason="Inventory level is healthy."
-          impact="₹0 impact"
-          priority="LOW"
-          confidence={95}
-        />
+        {decisions.map((decision) => (
+          <DecisionCard
+            key={decision.id}
+            title={decision.action.replace("_", " ")}
+            product={decision.productName}
+            reason={decision.reason}
+            impact={`Protect ₹${decision.moneyImpact}`}
+            priority={decision.priority}
+            confidence={decision.confidence}
+          />
+        ))}
 
       </div>
 

@@ -1,5 +1,5 @@
-//import { TodayDecision } from "./todayDecision";
 import type { TodayDecision } from "./todayDecision";
+
 export interface DashboardMetrics {
   totalRevenueAtRisk: number;
   totalProfitAtRisk: number;
@@ -13,9 +13,43 @@ export interface DashboardBusinessHealth {
   status: string;
 }
 
+export interface ExecutiveBrief {
+  greeting: string;
+  headline: string;
+  description: string;
+  confidence: number;
+  updatedAt: string;
+}
+
+export interface ProductAtRisk {
+  name: string;
+  status: string;
+  daysLeft: number;
+  revenueRisk: number;
+}
+
+export interface RevenueTrendPoint {
+  label: string;
+  value: number;
+}
+
+export interface BusinessHealthTrendPoint {
+  label: string;
+  value: number;
+}
+
 export interface Dashboard {
+  executiveBrief: ExecutiveBrief;
+
   businessHealth: DashboardBusinessHealth;
+
   metrics: DashboardMetrics;
+
   todayDecisions: TodayDecision[];
-  summary: string;
+
+  productsAtRisk: ProductAtRisk[];
+
+  revenueTrend: RevenueTrendPoint[];
+
+  businessHealthTrend: BusinessHealthTrendPoint[];
 }

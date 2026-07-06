@@ -6,7 +6,7 @@ interface DecisionCardProps {
   product: string;
   reason: string;
   impact: string;
-  priority: "CRITICAL" | "MEDIUM" | "LOW";
+  priority: "LOW" | "MEDIUM" | "HIGH" | "CRITICAL";
   confidence: number;
 }
 
@@ -19,11 +19,13 @@ export default function DecisionCard({
   confidence,
 }: DecisionCardProps) {
 
+
   const colors = {
-    CRITICAL: "text-red-500",
-    MEDIUM: "text-amber-500",
-    LOW: "text-green-500",
-  };
+  CRITICAL: "text-red-500",
+  HIGH: "text-orange-500",
+  MEDIUM: "text-yellow-500",
+  LOW: "text-green-500",
+};
 
   return (
     <Card className="p-6 hover:shadow-xl transition-all">
