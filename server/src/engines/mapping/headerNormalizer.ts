@@ -1,9 +1,24 @@
 export function normalizeHeader(header: string): string {
+
   return header
-    .trim()                     // remove spaces at beginning/end
-    .toLowerCase()              // lowercase everything
-    .replace(/[_-]+/g, " ")     // _ and - become spaces
-    .replace(/\./g, " ")        // dots become spaces
-    .replace(/\s+/g, " ")       // multiple spaces -> one space
+    .trim()
+    .toLowerCase()
+
+    // Remove text inside brackets
+    .replace(/\(.*?\)/g, "")
+
+    // Replace underscores and hyphens
+    .replace(/[_-]+/g, " ")
+
+    // Replace dots
+    .replace(/\./g, " ")
+
+    // Remove common currency symbols
+    .replace(/[₹$€£]/g, "")
+
+    // Collapse multiple spaces
+    .replace(/\s+/g, " ")
+
     .trim();
+
 }

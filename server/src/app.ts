@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-
+import chatRoutes from "./routes/chat.routes";
 import uploadRoutes from "./routes/upload.routes";
 import dashboardRoutes from "./routes/dashboardRoutes";
 const app = express();
@@ -8,6 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/api/upload", uploadRoutes);
+app.use("/api/chat", chatRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 
 app.get("/api/health", (req, res) => {

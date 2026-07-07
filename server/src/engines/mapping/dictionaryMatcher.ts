@@ -2,11 +2,17 @@
 export type StandardField =
   | "productName"
   | "quantity"
-  | "price"
-  | "category";
+  | "averageDailySales"
+  | "sellingPrice"
+  | "costPrice"
+  | "reorderLevel"
+  | "leadTimeDays"
+  | "category"
+  | "isTopSeller";
 
 // Dictionary of known synonyms
 const COLUMN_DICTIONARY: Record<string, StandardField> = {
+
   // Product
   "product": "productName",
   "product name": "productName",
@@ -23,27 +29,65 @@ const COLUMN_DICTIONARY: Record<string, StandardField> = {
   "quantity": "quantity",
   "stock": "quantity",
   "inventory": "quantity",
-  "available": "quantity",
+  "available qty": "quantity",
+  "available quantity": "quantity",
+  "current stock": "quantity",
   "remaining": "quantity",
   "balance": "quantity",
 
-  // Price
-  "price": "price",
-  "unit price": "price",
-  "selling price": "price",
-  "buying price": "price",
-  "cost": "price",
-  "rate": "price",
-  "mrp": "price",
+  // Average Daily Sales
+  "average daily sales": "averageDailySales",
+  "avg daily sales": "averageDailySales",
+  "daily sales": "averageDailySales",
+  "sales per day": "averageDailySales",
+  "avg sales": "averageDailySales",
+
+  // Selling Price
+  "selling price": "sellingPrice",
+  "sellingprice": "sellingPrice",
+  "sale price": "sellingPrice",
+  "retail price": "sellingPrice",
+  "price": "sellingPrice",
+  "mrp": "sellingPrice",
+  "selling rate": "sellingPrice",
+
+  // Cost Price
+  "cost price": "costPrice",
+  "costprice": "costPrice",
+  "cost": "costPrice",
+  "buying price": "costPrice",
+  "purchase price": "costPrice",
+
+  // Reorder Level
+  "reorder level": "reorderLevel",
+  "minimum stock": "reorderLevel",
+  "minimum quantity": "reorderLevel",
+  "reorder point": "reorderLevel",
+  "min stock": "reorderLevel",
+
+  // Lead Time
+  "lead time": "leadTimeDays",
+  "lead time days": "leadTimeDays",
+  "delivery days": "leadTimeDays",
+  "supplier lead time": "leadTimeDays",
 
   // Category
   "category": "category",
-  "type": "category",
   "department": "category",
+  "type": "category",
+
+  // Top Seller
+  "top seller": "isTopSeller",
+  "topseller": "isTopSeller",
+  "best seller": "isTopSeller",
+  "is top seller": "isTopSeller"
+
 };
 
 export function dictionaryMatch(
   normalizedHeader: string
 ): StandardField | null {
+
   return COLUMN_DICTIONARY[normalizedHeader] ?? null;
+
 }

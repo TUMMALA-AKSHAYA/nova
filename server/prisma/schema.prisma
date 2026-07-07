@@ -43,8 +43,9 @@ model Organization {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  stores   Store[]
-  products Product[]
+  stores    Store[]
+  products  Product[]
+  snapshots InventorySnapshot[]
 }
 
 //////////////////////////////////////////////////////////
@@ -99,6 +100,92 @@ model Product {
   @@unique([organizationId, sku])
   @@index([organizationId])
 }
+
+//////////////////////////////////////////////////////////
+// INVENTORY SNAPSHOT
+//////////////////////////////////////////////////////////
+
+model InventorySnapshot {
+  id String @id @default(uuid())
+
+  organizationId String
+
+  uploadedFileName String
+
+  totalProducts Int
+
+  businessHealth Float
+
+  totalRevenueAtRisk Float
+
+  totalProfitAtRisk Float
+
+  totalBlockedCapital Float
+
+  totalWorkingCapitalLocked Float
+
+  createdAt DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  items InventorySnapshotItem[]
+
+  @@index([organizationId])
+  @@index([createdAt])
+}
+
+//////////////////////////////////////////////////////////
+// INVENTORY SNAPSHOT ITEM
+//////////////////////////////////////////////////////////
+
+model InventorySnapshotItem {
+  id String @id @default(uuid())
+
+  snapshotId String
+
+  sku String?
+
+  productName String
+
+  category String?
+
+  quantity Float
+
+  averageDailySales Float
+
+  reorderLevel Float
+
+  leadTimeDays Int
+
+  daysUntilStockout Float
+
+  inventoryHealth Float
+
+  businessHealthScore Float
+
+  revenueRisk Float
+
+  profitRisk Float
+
+  blockedCapital Float
+
+  workingCapitalLocked Float
+
+  recommendedAction String
+
+  priority String
+
+  createdAt DateTime @default(now())
+
+  snapshot InventorySnapshot @relation(fields: [snapshotId], references: [id], onDelete: Cascade)
+
+  @@index([snapshotId])
+  @@index([productName])
+}
+
+//////////////////////////////////////////////////////////
+// HEADER MAPPING MEMORY
+//////////////////////////////////////////////////////////
 
 model HeaderMapping {
   id String @id @default(cuid())

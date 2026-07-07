@@ -17,9 +17,19 @@ export function getDashboard(): Dashboard {
   const items = getAllInventoryItems();
 
   // Build insights
-  const insights = items.map(buildInventoryInsight);
+ // const insights = items.map(buildInventoryInsight);
+  console.log("Inventory Items:");
+console.log(items);
 
+const insights = items.map((item) => {
+  console.log("Building insight for:", item.productName);
+  return buildInventoryInsight(item);
+});
+
+console.log("Insights:");
+console.log(insights);
   // Calculate business health for each product
+  console.log("Business Health");
   const businessHealthResults =
     insights.map(calculateBusinessHealth);
 
@@ -37,11 +47,13 @@ export function getDashboard(): Dashboard {
     );
 
   // Executive Brief
+  console.log("Executive Brief");
   const executiveBrief =
     generateExecutiveBrief(
       insights,
       averageBusinessHealth
     );
+  console.log("Products At Risk");
   const productsAtRisk =
   buildProductsAtRisk(insights);
   // Dashboard Response
