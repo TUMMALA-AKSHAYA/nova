@@ -1,6 +1,11 @@
 node_modules
 dist
-.env
 
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Uploaded files
 src/uploads/*
 !src/uploads/.gitkeep

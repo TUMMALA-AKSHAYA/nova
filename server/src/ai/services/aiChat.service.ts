@@ -1,20 +1,40 @@
-import { buildAIContext } from "../context/contextBuilder";
-import { OpenAIProvider } from "../providers/openai.provider";
+import { buildBrainQuery } from "../../brain/intent/brainQueryBuilder";
+import { buildDecisionContext } from "../../brain/orchestrator/decisionOrchestrator";
+import { selectContext } from "../../brain/context/contextSelector";
+
+import { getAIProvider } from "../providers/providerFactory";
+import { buildPrompt } from "../prompts/promptBuilder";
 
 export class AIChatService {
 
-  private provider = new OpenAIProvider();
-
   async chat(message: string): Promise<string> {
 
-    const context = buildAIContext();
+    // 1. Understand the question
+    const query = buildBrainQuery(message);
+    console.log("🧠 Brain Query:", query);
 
-    const response = await this.provider.chat(
-      context,
+    // 2. Decide what context is needed
+    const decision = buildDecisionContext(query);
+    console.log("🎯 Decision Context:", decision);
+
+    // 3. Retrieve only the required context
+    const selected = selectContext(decision);
+    console.log("📦 Selected Context:", selected);
+
+    // 4. Build prompt
+    const prompt = buildPrompt(
+      selected.context as any,
       message
     );
 
-    return response;
+    // 5. Get AI provider
+    const provider = getAIProvider();
+
+    // 6. Ask Gemini
+    return provider.chat(
+      selected.context as any,
+      prompt
+    );
 
   }
 
