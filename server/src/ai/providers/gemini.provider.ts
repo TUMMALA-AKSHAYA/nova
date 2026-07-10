@@ -1,10 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 
 import { AIProvider } from "./aiProvider";
-import { AIContext } from "../types/chat";
-
 import { env } from "../../config/env";
-import { buildPrompt } from "../prompts/promptBuilder";
 
 export class GeminiProvider implements AIProvider {
 
@@ -13,29 +10,40 @@ export class GeminiProvider implements AIProvider {
   });
 
   async chat(
-    context: AIContext,
-    message: string
+    prompt: string
   ): Promise<string> {
 
-    const prompt = buildPrompt(
-      context,
-      message
-    );
+    try {
 
-    const response =
-      await this.client.models.generateContent({
+      const response =
+        await this.client.models.generateContent({
 
-        model: "gemini-2.5-flash",
+          model: "gemini-3.5-flash",
 
-        contents: prompt,
+          contents: prompt,
 
-      });
+        });
 
-    return (
-      response.text ??
-      "Sorry, I couldn't generate a response."
-    );
+      return (
+        response.text ??
+        "Sorry, I couldn't generate a response."
+      );
+
+    } catch (error: any) {
+
+  console.error("=================================");
+  console.error("GEMINI ERROR");
+  console.error(error);
+  console.error("=================================");
+
+  if (error?.message) {
+    return `Gemini Error: ${error.message}`;
+  }
+
+  return "NOVA AI is temporarily unavailable.";
+
+}
+    }
 
   }
 
-}

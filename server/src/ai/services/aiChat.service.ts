@@ -7,34 +7,39 @@ import { buildPrompt } from "../prompts/promptBuilder";
 
 export class AIChatService {
 
-  async chat(message: string): Promise<string> {
+  async chat(
+    message: string
+  ): Promise<string> {
 
-    // 1. Understand the question
-    const query = buildBrainQuery(message);
+    console.log("Incoming Message:", message);
+
+    const query =
+      buildBrainQuery(message);
+
     console.log("🧠 Brain Query:", query);
 
-    // 2. Decide what context is needed
-    const decision = buildDecisionContext(query);
+    const decision =
+      buildDecisionContext(query);
+
     console.log("🎯 Decision Context:", decision);
 
-    // 3. Retrieve only the required context
-    const selected = selectContext(decision);
+    const selected =
+      selectContext(decision);
+
     console.log("📦 Selected Context:", selected);
 
-    // 4. Build prompt
-    const prompt = buildPrompt(
-      selected.context as any,
-      message
-    );
+    const prompt =
+  buildPrompt(
+    selected.context as any,
+    message
+  );
+    console.log("==================================");
+console.log(prompt);
+console.log("==================================");
+    const provider =
+      getAIProvider();
 
-    // 5. Get AI provider
-    const provider = getAIProvider();
-
-    // 6. Ask Gemini
-    return provider.chat(
-      selected.context as any,
-      prompt
-    );
+    return provider.chat(prompt);
 
   }
 

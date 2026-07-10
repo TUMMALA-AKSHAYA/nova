@@ -7,18 +7,53 @@ export async function chatController(
   req: Request,
   res: Response
 ) {
-  console.log("STEP 1");
 
-  const message = req.body?.message;
+  try {
 
-  console.log("STEP 2");
+    console.log("Body:", req.body);
 
-  const answer = await aiChatService.chat(message);
+    const message = req.body?.message;
 
-  console.log("STEP 3");
+    console.log("Message:", message);
 
-  return res.json({
-    success: true,
-    answer
-  });
+    if (
+      typeof message !== "string" ||
+      message.trim() === ""
+    ) {
+
+      return res.status(400).json({
+
+        success: false,
+
+        message: "Message is required."
+
+      });
+
+    }
+
+    const answer =
+      await aiChatService.chat(message);
+
+    return res.json({
+
+      success: true,
+
+      answer
+
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    return res.status(500).json({
+
+      success: false,
+
+      message: "Failed to process chat."
+
+    });
+
+  }
+
 }
