@@ -10,9 +10,12 @@ export async function chatController(
 
   try {
 
+    //console.log("Body:", req.body);
     console.log("Body:", req.body);
+console.log("Message:", req.body?.message);
 
     const message = req.body?.message;
+
 
     console.log("Message:", message);
 

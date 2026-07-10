@@ -1,23 +1,35 @@
 import { AIContext } from "../types/chat";
+import { getDashboard } from "../../services/dashboardService";
 
 export function buildAIContext(): AIContext {
+
+  const dashboard = getDashboard();
+
   return {
+
     executiveBrief: {
-      headline: "Test",
-      description: "Test"
+      headline: dashboard.executiveBrief.headline,
+      description: dashboard.executiveBrief.description,
     },
+
     businessHealth: {
-      score: 80,
-      grade: "B",
-      status: "Good"
+      score: dashboard.businessHealth.score,
+      grade: dashboard.businessHealth.grade,
+      status: dashboard.businessHealth.status,
     },
+
     metrics: {
-      totalRevenueAtRisk: 0,
-      totalProfitAtRisk: 0,
-      totalBlockedCapital: 0,
-      totalWorkingCapitalLocked: 0
+      totalRevenueAtRisk: dashboard.metrics.totalRevenueAtRisk,
+      totalProfitAtRisk: dashboard.metrics.totalProfitAtRisk,
+      totalBlockedCapital: dashboard.metrics.totalBlockedCapital,
+      totalWorkingCapitalLocked:
+        dashboard.metrics.totalWorkingCapitalLocked,
     },
-    todayDecisions: [],
-    productsAtRisk: []
+
+    todayDecisions: dashboard.todayDecisions,
+
+    productsAtRisk: dashboard.productsAtRisk,
+
   };
+
 }

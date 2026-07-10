@@ -15,14 +15,25 @@ export class GeminiProvider implements AIProvider {
 
     try {
 
-      const response =
-        await this.client.models.generateContent({
+      console.log("🚀 Sending Request to Gemini...");
+      console.log("Prompt Length:", prompt.length);
 
-          model: "gemini-3.5-flash",
+     
+      const response = await this.client.models.generateContent({
+  model: "gemini-3.5-flash",
+  contents: `
+Business Context:
 
-          contents: prompt,
+Revenue at Risk: ₹2400
+Product: Coffee Beans
+Status: Critical
+Reason: Stock will run out before supplier delivery.
 
-        });
+Question:
+Why is Coffee Beans critical?
+`
+});
+      console.log("✅ Gemini Success");
 
       return (
         response.text ??
@@ -31,19 +42,19 @@ export class GeminiProvider implements AIProvider {
 
     } catch (error: any) {
 
-  console.error("=================================");
-  console.error("GEMINI ERROR");
-  console.error(error);
-  console.error("=================================");
+      console.log("==================================");
+      console.log("❌ GEMINI ERROR");
+      console.error(error);
+      console.log("==================================");
 
-  if (error?.message) {
-    return `Gemini Error: ${error.message}`;
-  }
+      if (error?.message) {
+        return `Gemini Error: ${error.message}`;
+      }
 
-  return "NOVA AI is temporarily unavailable.";
+      return "NOVA AI is temporarily unavailable.";
 
-}
     }
 
   }
 
+}

@@ -1,24 +1,55 @@
-import { AIContext } from "../types/chat";
-
 import { SYSTEM_PROMPT } from "./systemPrompt";
-import { formatContext } from "./contextFormatter";
 
 export function buildPrompt(
-  context: AIContext,
-  userMessage: string
+  evidence: string,
+  question: string
 ): string {
 
   return `
 
 ${SYSTEM_PROMPT}
 
-${formatContext(context)}
+==================================================
+BUSINESS EVIDENCE
+==================================================
 
-==========================
+${evidence}
+
+==================================================
 USER QUESTION
-==========================
+==================================================
 
-${userMessage}
+${question}
+
+==================================================
+INSTRUCTIONS
+==================================================
+
+Answer ONLY using the BUSINESS EVIDENCE.
+
+Never invent numbers.
+
+Never estimate.
+
+Quote exact evidence.
+
+Explain WHY.
+
+Recommend ONE action.
+
+==================================================
+OUTPUT
+==================================================
+
+Return ONLY valid JSON.
+
+{
+  "summary": "",
+  "evidence": [],
+  "businessImpact": "",
+  "recommendation": "",
+  "confidence": 95
+}
 
 `;
 
