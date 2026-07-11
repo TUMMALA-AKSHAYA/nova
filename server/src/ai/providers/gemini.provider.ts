@@ -18,27 +18,18 @@ export class GeminiProvider implements AIProvider {
       console.log("🚀 Sending Request to Gemini...");
       console.log("Prompt Length:", prompt.length);
 
-     
-      const response = await this.client.models.generateContent({
-  model: "gemini-3.5-flash",
-  contents: `
-Business Context:
+      const response =
+        await this.client.models.generateContent({
 
-Revenue at Risk: ₹2400
-Product: Coffee Beans
-Status: Critical
-Reason: Stock will run out before supplier delivery.
+          model: "gemini-3.5-flash",
 
-Question:
-Why is Coffee Beans critical?
-`
-});
+          contents: prompt,
+
+        });
+
       console.log("✅ Gemini Success");
 
-      return (
-        response.text ??
-        "Sorry, I couldn't generate a response."
-      );
+      return response.text ?? "{}";
 
     } catch (error: any) {
 

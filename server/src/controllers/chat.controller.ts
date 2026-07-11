@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import { AIChatService } from "../ai/services/aiChat.service";
 
-const aiChatService = new AIChatService();
+const aiChatService =
+  new AIChatService();
 
 export async function chatController(
   req: Request,
@@ -10,14 +11,8 @@ export async function chatController(
 
   try {
 
-    //console.log("Body:", req.body);
-    console.log("Body:", req.body);
-console.log("Message:", req.body?.message);
-
-    const message = req.body?.message;
-
-
-    console.log("Message:", message);
+    const message =
+      req.body?.message;
 
     if (
       typeof message !== "string" ||
