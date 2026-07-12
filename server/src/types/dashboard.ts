@@ -1,14 +1,5 @@
 import type { TodayDecision } from "./todayDecision";
 
-export interface Dashboard {
-  executiveBrief: ExecutiveBrief;
-  businessHealth: DashboardBusinessHealth;
-  metrics: DashboardMetrics;
-  todayDecisions: TodayDecision[];
-  productsAtRisk: ProductAtRisk[];
-  revenueTrend: RevenuePoint[];
-  businessHealthTrend: BusinessHealthPoint[];
-}
 
 export interface DashboardMetrics {
   totalRevenueAtRisk: number;
@@ -32,7 +23,7 @@ export interface ExecutiveBrief {
 }
 
 export interface ProductAtRisk {
-  id: string;
+  id?: string;
   name: string;
   daysLeft: number;
   status: "HEALTHY" | "LOW" | "CRITICAL";

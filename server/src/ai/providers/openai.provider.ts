@@ -1,15 +1,9 @@
 import { AIProvider } from "./aiProvider";
-import { AIContext } from "../types/chat";
 
 export class OpenAIProvider implements AIProvider {
 
-  async chat(
-    context: AIContext,
-    message: string
-  ): Promise<string> {
-
-    return "OpenAI integration coming soon.";
-
+  async chat(prompt: string): Promise<string> {
+    throw new Error("OpenAI provider is not implemented.");
   }
 
 }

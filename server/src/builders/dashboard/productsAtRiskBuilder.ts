@@ -21,15 +21,22 @@ export function buildProductsAtRisk(
 
     .map(insight => ({
 
-      name: insight.productName,
+  id: insight.productName.toLowerCase().replace(/\s+/g, "-"),
 
-      status: insight.decision.priority,
+  name: insight.productName,
 
-      daysLeft: insight.health.daysUntilStockout,
+  status:
+    insight.decision.priority === "CRITICAL"
+      ? "CRITICAL"
+      : insight.decision.priority === "LOW"
+      ? "LOW"
+      : "HEALTHY",
 
-      revenueRisk:
-        insight.financial.estimatedRevenueLoss,
+  daysLeft: insight.health.daysUntilStockout,
 
-    }));
+  revenueRisk:
+    insight.financial.estimatedRevenueLoss,
+
+}));
 
 }

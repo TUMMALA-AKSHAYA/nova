@@ -1,6 +1,6 @@
-import { ProductContext } from "../types/retrieval";
-import { Recommendation } from "../types/recommendation";
-
+import type { ProductContext } from "../../types/retrieval";
+//import type { Recommendation } from "../types/recommendation";
+import type { Recommendation } from "../../types/recommendation";
 export function buildRecommendation(
   context: ProductContext
 ): Recommendation | null {

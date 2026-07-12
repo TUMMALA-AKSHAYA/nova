@@ -2,8 +2,8 @@ import { buildInventoryInsight } from "../../builders/inventoryInsightBuilder";
 
 import { getAllInventoryItems } from "../../repositories/inventoryRepository";
 
-import { ProductContext } from "../types/retrieval";
-
+//import { ProductContext } from "../types/retrieval";
+import type { ProductContext } from "../../types/retrieval";
 export function retrieveProductContext(
   entity?: string
 ): ProductContext {

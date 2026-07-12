@@ -2,7 +2,8 @@ import { buildAIContext } from "../../ai/context/contextBuilder";
 
 import { DecisionContext } from "../types/decision";
 
-import { SelectedContext } from "../types/context";
+//import { SelectedContext } from "../types/context";
+import type { SelectedContext } from "../../types/context";
 
 export function selectContext(
   decision: DecisionContext

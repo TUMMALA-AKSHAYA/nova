@@ -16,8 +16,89 @@ export function buildEvidence(
 
   const evidence: Evidence[] = [];
 
-  // Products at Risk
-  for (const product of context.productsAtRisk) {
+  // ==========================
+  // Executive Summary
+  // ==========================
+
+  if (context.executiveBrief) {
+
+    evidence.push({
+
+      category: "EXECUTIVE",
+
+      title: "Executive Summary",
+
+      data: {
+
+        headline: context.executiveBrief.headline,
+
+        description: context.executiveBrief.description
+
+      }
+
+    });
+
+  }
+
+  // ==========================
+  // Business Health
+  // ==========================
+
+  if (context.businessHealth) {
+
+    evidence.push({
+
+      category: "BUSINESS_HEALTH",
+
+      title: "Business Health",
+
+      data: {
+
+        score: context.businessHealth.score,
+
+        grade: context.businessHealth.grade,
+
+        status: context.businessHealth.status
+
+      }
+
+    });
+
+  }
+
+  // ==========================
+  // Financial Metrics
+  // ==========================
+
+  if (context.metrics) {
+
+    evidence.push({
+
+      category: "FINANCIAL",
+
+      title: "Financial Metrics",
+
+      data: {
+
+        revenueRisk: context.metrics.totalRevenueAtRisk,
+
+        profitRisk: context.metrics.totalProfitAtRisk,
+
+        blockedCapital: context.metrics.totalBlockedCapital,
+
+        workingCapital: context.metrics.totalWorkingCapitalLocked
+
+      }
+
+    });
+
+  }
+
+  // ==========================
+  // Products At Risk
+  // ==========================
+
+  for (const product of context.productsAtRisk ?? []) {
 
     evidence.push({
 
@@ -39,8 +120,11 @@ export function buildEvidence(
 
   }
 
+  // ==========================
   // Today's Decisions
-  for (const decision of context.todayDecisions as any[]) {
+  // ==========================
+
+  for (const decision of context.todayDecisions ?? []) {
 
     evidence.push({
 
@@ -54,7 +138,11 @@ export function buildEvidence(
 
         action: decision.action,
 
-        reason: decision.reason
+        reason: decision.reason,
+
+        confidence: decision.confidence,
+
+        moneyImpact: decision.moneyImpact
 
       }
 

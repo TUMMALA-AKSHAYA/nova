@@ -33,12 +33,13 @@ export function generateDecision(
     Math.ceil(targetStock - item.quantity)
   );
 
+  // Revenue that could be lost if stock runs out
   const estimatedRevenueAtRisk =
     Math.max(
       0,
       health.daysUntilStockout < item.leadTimeDays
         ? item.averageDailySales *
-            item.price *
+            item.sellingPrice *
             (item.leadTimeDays - health.daysUntilStockout)
         : 0
     );
