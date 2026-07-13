@@ -1,7 +1,10 @@
-import { Dashboard } from "../types/dashboard";
+import type { Dashboard } from "../types/dashboard";
 
-import { buildInventoryInsight } from "../builders/inventoryInsightBuilder";
+import { buildRevenueTrend } from "../builders/dashboard/revenueTrendBuilder";
+import { buildBusinessHealthTrend } from "../builders/dashboard/businessHealthTrendBuilder";
 import { buildProductsAtRisk } from "../builders/dashboard/productsAtRiskBuilder";
+import { buildInventoryInsight } from "../builders/inventoryInsightBuilder";
+
 import {
   calculateBusinessHealth,
   getBusinessHealthGrade,
@@ -12,28 +15,22 @@ import { generateExecutiveBrief } from "../engines/business/executiveBriefEngine
 import { getAllInventoryItems } from "../repositories/inventoryRepository";
 
 export function getDashboard(): Dashboard {
-
-  // Fetch inventory from repository
+  // Fetch inventory
   const items = getAllInventoryItems();
 
   // Build insights
- // const insights = items.map(buildInventoryInsight);
-  console.log("Inventory Items:");
-console.log(items);
+  const insights = items.map((item) => {
+    console.log("Building insight for:", item.productName);
+    return buildInventoryInsight(item);
+  });
 
-const insights = items.map((item) => {
-  console.log("Building insight for:", item.productName);
-  return buildInventoryInsight(item);
-});
+  console.log("Insights:");
+  console.log(insights);
 
-console.log("Insights:");
-console.log(insights);
-  // Calculate business health for each product
-  console.log("Business Health");
+  // Business Health
   const businessHealthResults =
     insights.map(calculateBusinessHealth);
 
-  // Overall Business Health
   const averageBusinessHealth = Math.round(
     businessHealthResults.reduce(
       (sum, result) => sum + result.score,
@@ -47,68 +44,54 @@ console.log(insights);
     );
 
   // Executive Brief
-  console.log("Executive Brief");
   const executiveBrief =
     generateExecutiveBrief(
       insights,
       averageBusinessHealth
     );
-  console.log("Products At Risk");
+
+  // Products At Risk
   const productsAtRisk =
-  buildProductsAtRisk(insights);
-  // Dashboard Response
+    buildProductsAtRisk(insights);
 
   return {
+    executiveBrief: {
+      greeting: "GOOD AFTERNOON",
+      headline: executiveBrief.summary,
+      description: `Business Health ${averageBusinessHealth}/100`,
+      confidence: 95,
+      updatedAt: "Just now",
+    },
 
-  executiveBrief: {
+    businessHealth: {
+      score: averageBusinessHealth,
+      grade: overallHealth.grade,
+      status: overallHealth.status,
+    },
 
-    greeting: "GOOD AFTERNOON",
+    metrics: {
+      totalRevenueAtRisk:
+        executiveBrief.totalRevenueAtRisk,
 
-    headline: executiveBrief.summary,
+      totalProfitAtRisk:
+        executiveBrief.totalProfitAtRisk,
 
-    description: `Business Health ${averageBusinessHealth}/100`,
+      totalBlockedCapital:
+        executiveBrief.totalBlockedCapital,
 
-    confidence: 95,
+      totalWorkingCapitalLocked:
+        executiveBrief.totalWorkingCapitalLocked,
+    },
 
-    updatedAt: "Just now",
+    todayDecisions:
+      executiveBrief.todayDecisions,
 
-  },
+    productsAtRisk,
 
-  businessHealth: {
+    revenueTrend:
+      buildRevenueTrend(),
 
-    score: averageBusinessHealth,
-
-    grade: overallHealth.grade,
-
-    status: overallHealth.status,
-
-  },
-
-  metrics: {
-
-    totalRevenueAtRisk:
-      executiveBrief.totalRevenueAtRisk,
-
-    totalProfitAtRisk:
-      executiveBrief.totalProfitAtRisk,
-
-    totalBlockedCapital:
-      executiveBrief.totalBlockedCapital,
-
-    totalWorkingCapitalLocked:
-      executiveBrief.totalWorkingCapitalLocked,
-
-  },
-
-  todayDecisions:
-    executiveBrief.todayDecisions,
-
-  productsAtRisk: productsAtRisk,
-
-  revenueTrend: [],
-
-  businessHealthTrend: [],
-
-};
-
+    businessHealthTrend:
+      buildBusinessHealthTrend(),
+  };
 }

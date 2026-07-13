@@ -67,9 +67,13 @@ export default function Dashboard() {
         decisions={dashboard.todayDecisions}
       />
 
-      <BusinessHealthTrend />
+      <BusinessHealthTrend
+  data={dashboard.businessHealthTrend}
+/>
 
-      <RevenueTrend />
+<RevenueTrend
+  data={dashboard.revenueTrend}
+/>
 
       <ProductsAtRisk
         products={dashboard.productsAtRisk}

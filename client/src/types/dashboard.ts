@@ -28,14 +28,15 @@ export interface ProductAtRisk {
   revenueRisk: number;
 }
 
+
 export interface RevenueTrendPoint {
   label: string;
-  value: number;
+  revenue: number;
 }
 
 export interface BusinessHealthTrendPoint {
   label: string;
-  value: number;
+  score: number;
 }
 
 export interface Dashboard {
