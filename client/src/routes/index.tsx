@@ -6,10 +6,10 @@ import {
 } from "react-router-dom";
 
 import MainLayout from "../layouts/MainLayout";
-
+import Upload from "../pages/Upload/Upload";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Products from "../pages/Products/Products";
-
+import Copilot from "../pages/Copilot/Copilot";
 export default function AppRoutes() {
   return (
     <BrowserRouter>
@@ -31,6 +31,15 @@ export default function AppRoutes() {
             path="/products"
             element={<Products />}
           />
+
+          <Route
+            path="/copilot"
+            element={<Copilot />}
+          />
+          <Route
+  path="/upload"
+  element={<Upload />}
+/>
 
         </Route>
 

@@ -53,6 +53,9 @@ console.log("=================================");
         formattedEvidence,
         message
       );
+    console.log("\n================ PROMPT TO GEMINI ================\n");
+console.log(prompt);
+console.log("\n==================================================\n");
 
     const provider =
       getAIProvider();

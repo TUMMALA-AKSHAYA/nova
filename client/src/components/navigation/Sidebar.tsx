@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+
 import {
   Home,
   Package,
@@ -6,8 +7,8 @@ import {
   BarChart3,
   Upload,
   Settings,
+  Bot,
 } from "lucide-react";
-
 const menu = [
   {
     name: "Today's Decisions",
@@ -39,6 +40,11 @@ const menu = [
     path: "/settings",
     icon: Settings,
   },
+  {
+    name: "Copilot",
+    path: "/copilot",
+    icon: Bot,
+  }
 ];
 
 export default function Sidebar() {

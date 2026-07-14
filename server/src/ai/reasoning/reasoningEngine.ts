@@ -8,7 +8,7 @@ export function selectEvidence(
   const query = question.toLowerCase();
 
   // Product-specific questions
-  const productEvidence = evidence.filter(item =>
+  const productEvidence = evidence.filter((item) =>
     query.includes(item.title.toLowerCase())
   );
 
@@ -17,36 +17,41 @@ export function selectEvidence(
   }
 
   // Business Health
-  if (
-    query.includes("health")
-  ) {
-    return evidence.filter(item =>
-      item.category === "BUSINESS_HEALTH"
+  if (query.includes("health")) {
+    return evidence.filter(
+      (item) => item.category === "BUSINESS_HEALTH"
     );
   }
 
-  // Revenue
+  // Revenue / Financial
   if (
     query.includes("revenue") ||
-    query.includes("profit")
+    query.includes("profit") ||
+    query.includes("capital")
   ) {
-    return evidence.filter(item =>
-      item.category === "PRODUCT_RISK"
+    return evidence.filter(
+      (item) =>
+        item.category === "FINANCIAL" ||
+        item.category === "PRODUCT_RISK"
     );
   }
 
-  // Inventory Decisions
+  // Inventory / Reorder / Decisions
   if (
     query.includes("reorder") ||
     query.includes("decision") ||
-    query.includes("stock")
+    query.includes("stock") ||
+    query.includes("inventory") ||
+    query.includes("product")
   ) {
-    return evidence.filter(item =>
-      item.category === "DECISION"
+    return evidence.filter(
+      (item) =>
+        item.category === "DECISION" ||
+        item.category === "PRODUCT_RISK"
     );
   }
 
-  // Executive Summary
+  // Summary / Overview
   if (
     query.includes("summary") ||
     query.includes("overview") ||
@@ -56,5 +61,4 @@ export function selectEvidence(
   }
 
   return evidence;
-
 }
