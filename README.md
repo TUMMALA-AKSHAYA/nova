@@ -96,7 +96,7 @@ React 19                    Gemini                    Inventory Engine
 TypeScript                  Reasoning Engine           Financial Engine
 Tailwind CSS                Evidence Engine             Business Health Engine
 Recharts
-     │                           │                            │
+     │                           │                           |
      └───────────► REST API ◄────┴──────────► Repository ◄───┘
                         │                    (Inventory Snapshot)
                         ▼
