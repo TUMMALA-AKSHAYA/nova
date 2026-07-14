@@ -8,11 +8,32 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/AI-Google_Gemini-4285F4?style=for-the-badge&logo=google"/>
-  <img src="https://img.shields.io/badge/Frontend-React_19-61DAFB?style=for-the-badge&logo=react"/>
-  <img src="https://img.shields.io/badge/Backend-Node.js-339933?style=for-the-badge&logo=node.js"/>
-  <img src="https://img.shields.io/badge/Database-PostgreSQL-336791?style=for-the-badge&logo=postgresql"/>
-  <img src="https://img.shields.io/badge/ORM-Prisma-2D3748?style=for-the-badge&logo=prisma"/>
+
+  <img src="https://img.shields.io/badge/AI-Google%20Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white" />
+
+  <img src="https://img.shields.io/badge/Frontend-React%2019-61DAFB?style=for-the-badge&logo=react&logoColor=white" />
+
+  <img src="https://img.shields.io/badge/Language-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+
+  <img src="https://img.shields.io/badge/Backend-Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" />
+
+  <img src="https://img.shields.io/badge/Framework-Express-000000?style=for-the-badge&logo=express&logoColor=white" />
+
+  <img src="https://img.shields.io/badge/Database-PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white" />
+
+  <img src="https://img.shields.io/badge/ORM-Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white" />
+
+</p>
+<p align="center">
+
+  <img src="https://img.shields.io/github/license/TUMMALA-AKSHAYA/nova?style=flat-square" />
+
+  <img src="https://img.shields.io/github/last-commit/TUMMALA-AKSHAYA/nova?style=flat-square" />
+
+  <img src="https://img.shields.io/github/repo-size/TUMMALA-AKSHAYA/nova?style=flat-square" />
+
+  <img src="https://img.shields.io/github/languages/top/TUMMALA-AKSHAYA/nova?style=flat-square" />
+
 </p>
 
 <p align="center">
