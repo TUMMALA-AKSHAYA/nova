@@ -33,16 +33,26 @@ export async function uploadCSV(
     console.log(headers);
 
     // AI Header Mapping
-    const mappedHeaders =
-      mapColumns(headers);
+    // AI Header Mapping
+const mappedHeaders =
+  mapColumns(headers);
 
-    // Normalize Rows
-    const normalizedRows =
-      normalizeRows(rows, mappedHeaders);
+console.log("===== MAPPED HEADERS =====");
+console.table(mappedHeaders);
 
-    // Convert to InventoryItem[]
-    const inventoryItems =
-      normalizedRows.map(buildInventoryItem);
+// Normalize Rows
+const normalizedRows =
+  normalizeRows(rows, mappedHeaders);
+
+console.log("===== NORMALIZED ROW =====");
+console.log(normalizedRows[0]);
+
+// Convert to InventoryItem[]
+const inventoryItems =
+  normalizedRows.map(buildInventoryItem);
+
+console.log("===== INVENTORY ITEM =====");
+console.log(inventoryItems[0]);
 
     // Replace repository data
     setInventoryItems(inventoryItems);

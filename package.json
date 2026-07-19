@@ -4,6 +4,8 @@
     "csv-parser": "^3.2.1",
     "dotenv": "^17.4.2",
     "multer": "^2.2.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
     "string-similarity": "^4.0.4"
   },
   "devDependencies": {

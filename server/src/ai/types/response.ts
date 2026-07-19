@@ -2,11 +2,17 @@ export interface AIResponse {
 
   summary: string;
 
+  analysis: string;
+
+  reasoning: string;
+
   evidence: string[];
 
-  businessImpact: string;
+  actions: string[];
 
-  recommendation: string;
+  risks: string[];
+
+  insights: string[];
 
   confidence: number;
 

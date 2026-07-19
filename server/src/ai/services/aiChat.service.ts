@@ -67,19 +67,7 @@ console.log("RAW RESPONSE FROM GEMINI");
 console.log(rawResponse);
 console.log("=================================");
 
-const parsed = parseAIResponse(rawResponse);
-
-console.log("=================================");
-console.log("PARSED RESPONSE");
-console.log(parsed);
-console.log("=================================");
-
-return parsed;
-
-    return parseAIResponse(
-      rawResponse
-    );
-
+return parseAIResponse(rawResponse);
   }
 
 }

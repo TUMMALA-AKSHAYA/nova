@@ -7,12 +7,9 @@ export function parseAIResponse(
 
   try {
 
-    const parsed =
-      JSON.parse(text);
+    const parsed = JSON.parse(text);
 
-    return validateAIResponse(
-      parsed
-    );
+    return validateAIResponse(parsed);
 
   } catch {
 
@@ -20,13 +17,19 @@ export function parseAIResponse(
 
       summary: text,
 
+      analysis: "",
+
+      reasoning: "",
+
       evidence: [],
 
-      businessImpact: "",
+      actions: [],
 
-      recommendation: "",
+      risks: [],
 
-      confidence: 95,
+      insights: [],
+
+      confidence: 70,
 
     };
 

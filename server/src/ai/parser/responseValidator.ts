@@ -11,25 +11,40 @@ export function validateAIResponse(
         ? response.summary
         : "No summary available.",
 
+    analysis:
+      typeof response.analysis === "string"
+        ? response.analysis
+        : "",
+
+    reasoning:
+      typeof response.reasoning === "string"
+        ? response.reasoning
+        : "",
+
     evidence:
       Array.isArray(response.evidence)
         ? response.evidence
         : [],
 
-    businessImpact:
-      typeof response.businessImpact === "string"
-        ? response.businessImpact
-        : "",
+    actions:
+      Array.isArray(response.actions)
+        ? response.actions
+        : [],
 
-    recommendation:
-      typeof response.recommendation === "string"
-        ? response.recommendation
-        : "",
+    risks:
+      Array.isArray(response.risks)
+        ? response.risks
+        : [],
+
+    insights:
+      Array.isArray(response.insights)
+        ? response.insights
+        : [],
 
     confidence:
       typeof response.confidence === "number"
         ? response.confidence
-        : 95,
+        : 70,
 
   };
 
