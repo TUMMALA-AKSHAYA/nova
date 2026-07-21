@@ -1,9 +1,8 @@
 import { Outlet } from "react-router-dom";
 
-//import Sidebar from "../components/layout/Sidebar";
-//import TopNavbar from "../components/layout/TopNavbar";
 import Sidebar from "../components/navigation/Sidebar";
 import TopNavbar from "../components/navigation/TopNavbar";
+
 export default function MainLayout() {
   return (
     <div className="flex h-screen bg-slate-950 text-white">

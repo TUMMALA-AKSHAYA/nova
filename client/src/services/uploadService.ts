@@ -9,6 +9,11 @@ export interface UploadResponse {
   preview: unknown[];
 }
 
+interface UploadErrorResponse {
+  error?: string;
+  message?: string;
+}
+
 export async function uploadInventory(
   file: File
 ): Promise<UploadResponse> {
@@ -26,7 +31,19 @@ export async function uploadInventory(
   );
 
   if (!response.ok) {
-    throw new Error("Upload failed.");
+    let errorMessage = "Upload failed.";
+
+    try {
+      const payload =
+        (await response.json()) as UploadErrorResponse;
+
+      errorMessage =
+        payload.error || payload.message || errorMessage;
+    } catch {
+      // Keep the default error when the server returns an empty response.
+    }
+
+    throw new Error(errorMessage);
   }
 
   return response.json();

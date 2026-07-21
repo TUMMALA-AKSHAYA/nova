@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import BusinessSnapshot from "./BusinessSnapshot";
 import ChatInput from "./ChatInput";
 import ChatMessage from "./ChatMessage";
-import WelcomeScreen from "./WelcomeScreen";
 import ThinkingIndicator from "./ThinkingIndicator";
 
 import { sendMessage } from "../../services/chatService";
@@ -24,10 +23,6 @@ export default function Copilot() {
       behavior: "smooth",
     });
   }, [messages, isThinking]);
-
-  const hasConversation = messages.some(
-    (message) => message.role === "user"
-  );
 
   async function handleSend(message: string) {
     const userMessage: Message = {
@@ -114,10 +109,10 @@ ${response.insights.map((item) => `- ${item}`).join("\n")}
   }
 
   return (
-    <div className="flex h-[80vh] flex-col">
+    <div className="flex h-[80vh] min-h-0 flex-col">
       {/* Header */}
 
-      <div className="mb-6">
+      <div className="mb-6 shrink-0">
         <h1 className="text-4xl font-bold">
           🤖 NOVA AI
         </h1>
@@ -139,47 +134,34 @@ ${response.insights.map((item) => `- ${item}`).join("\n")}
 
       {/* Chat */}
 
-      //<div className="flex-1 overflow-y-auto rounded-xl border border-slate-700 bg-slate-900 p-6">
-        <div className="flex flex-1 gap-6">
+      <div className="flex min-h-0 flex-1 flex-col gap-5 md:flex-row">
+        <div className="flex min-w-0 flex-1 flex-col">
+          <div className="min-h-0 flex-1 overflow-y-auto rounded-xl border border-slate-700 bg-slate-900 p-4 sm:p-5">
+            <div className="space-y-5">
+              {messages.map((message) => (
+                <ChatMessage
+                  key={message.id}
+                  role={message.role}
+                  content={message.content}
+                />
+              ))}
 
-    <div className="flex-1 overflow-y-auto rounded-xl border border-slate-700 bg-slate-900 p-6">
+              {isThinking && <ThinkingIndicator />}
 
-        {/* Existing chat code stays exactly the same */}
-
-    </div>
-
-    <div className="w-80">
-
-        <BusinessSnapshot />
-
-    </div>
-
-</div>
-        {!hasConversation ? (
-          <WelcomeScreen
-            onPromptClick={handleSend}
-          />
-        ) : (
-          <div className="space-y-6">
-            {messages.map((message) => (
-              <ChatMessage
-                key={message.id}
-                role={message.role}
-                content={message.content}
-              />
-            ))}
-
-            {isThinking && <ThinkingIndicator />}
-
-            <div ref={messagesEndRef} />
+              <div ref={messagesEndRef} />
+            </div>
           </div>
-        )}
-      </div>
 
-      {/* Input */}
+          {/* Input */}
 
-      <div className="mt-4">
-        <ChatInput onSend={handleSend} />
+          <div className="sticky bottom-0 mt-4 shrink-0">
+            <ChatInput onSend={handleSend} />
+          </div>
+        </div>
+
+        <div className="w-full shrink-0 md:w-80">
+          <BusinessSnapshot />
+        </div>
       </div>
     </div>
   );

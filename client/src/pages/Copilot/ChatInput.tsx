@@ -15,11 +15,11 @@ export default function ChatInput({ onSend }: Props) {
   }
 
   return (
-    <div className="rounded-2xl border border-slate-700 bg-slate-900 p-3 shadow-lg">
+    <div className="rounded-xl border border-slate-700 bg-slate-900 p-3 shadow-lg">
       <div className="flex items-end gap-3">
         <textarea
           rows={1}
-          className="max-h-40 min-h-[48px] flex-1 resize-none bg-transparent p-2 text-slate-100 outline-none placeholder:text-slate-500"
+          className="max-h-40 min-h-[48px] flex-1 resize-none bg-transparent px-3 py-2 text-sm leading-6 text-slate-100 outline-none placeholder:text-slate-500"
           placeholder="Ask NOVA anything about your business..."
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -34,13 +34,13 @@ export default function ChatInput({ onSend }: Props) {
         <button
           onClick={send}
           disabled={!text.trim()}
-          className="rounded-xl bg-blue-600 px-5 py-3 font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+          className="h-12 rounded-lg bg-blue-600 px-5 font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
           ↑
         </button>
       </div>
 
-      <div className="mt-2 text-center text-xs text-slate-500">
+      <div className="mt-2 text-center text-xs leading-5 text-slate-500">
         Press <b>Enter</b> to send • <b>Shift + Enter</b> for a new line
       </div>
     </div>
