@@ -134,7 +134,7 @@ ${response.insights.map((item) => `- ${item}`).join("\n")}
 
       {/* Chat */}
 
-      <div className="flex min-h-0 flex-1 flex-col gap-5 md:flex-row">
+      <div className="flex min-h-0 flex-1 flex-col gap-5 lg:flex-row">
         <div className="flex min-w-0 flex-1 flex-col">
           <div className="min-h-0 flex-1 overflow-y-auto rounded-xl border border-slate-700 bg-slate-900 p-4 sm:p-5">
             <div className="space-y-5">
@@ -159,7 +159,7 @@ ${response.insights.map((item) => `- ${item}`).join("\n")}
           </div>
         </div>
 
-        <div className="w-full shrink-0 md:w-80">
+        <div className="w-full shrink-0 lg:w-80">
           <BusinessSnapshot />
         </div>
       </div>

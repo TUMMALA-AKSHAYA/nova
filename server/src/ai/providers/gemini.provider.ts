@@ -38,11 +38,10 @@ export class GeminiProvider implements AIProvider {
       console.error(error);
       console.log("==================================");
 
-      if (error?.message) {
-        return `Gemini Error: ${error.message}`;
-      }
-
-      return "NOVA AI is temporarily unavailable.";
+      throw new Error(
+        error?.message ||
+          "NOVA AI is temporarily unavailable."
+      );
 
     }
 

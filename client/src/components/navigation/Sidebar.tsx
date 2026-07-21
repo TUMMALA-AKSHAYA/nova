@@ -49,9 +49,9 @@ const menu = [
 
 export default function Sidebar() {
   return (
-    <aside className="w-72 border-r border-slate-800 bg-slate-900">
-      <div className="p-8">
-        <h1 className="text-3xl font-bold text-blue-400">
+    <aside className="shrink-0 border-b border-slate-800 bg-slate-900 md:w-72 md:border-b-0 md:border-r">
+      <div className="p-4 md:p-8">
+        <h1 className="text-2xl font-bold text-blue-400 md:text-3xl">
           NOVA
         </h1>
 
@@ -60,7 +60,7 @@ export default function Sidebar() {
         </p>
       </div>
 
-      <nav className="space-y-2 px-4">
+      <nav className="flex gap-2 overflow-x-auto px-4 pb-4 md:block md:space-y-2 md:pb-0">
         {menu.map((item) => {
           const Icon = item.icon;
 
@@ -68,7 +68,7 @@ export default function Sidebar() {
             <NavLink
               key={item.path}
               to={item.path}
-              className="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-slate-800"
+              className="flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 hover:bg-slate-800"
             >
               <Icon size={20} />
               <span>{item.name}</span>

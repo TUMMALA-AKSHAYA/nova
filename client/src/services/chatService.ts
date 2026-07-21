@@ -12,6 +12,7 @@ export interface AIResponse {
 interface ChatApiResponse {
   success: boolean;
   answer: AIResponse;
+  message?: string;
 }
 
 const API_BASE_URL =
@@ -31,7 +32,19 @@ export async function sendMessage(
   });
 
   if (!response.ok) {
-    throw new Error("Failed to contact NOVA.");
+    let errorMessage = "Failed to contact NOVA.";
+
+    try {
+      const payload =
+        (await response.json()) as Partial<ChatApiResponse>;
+
+      errorMessage =
+        payload.message || errorMessage;
+    } catch {
+      // Keep the default message when the server has no JSON body.
+    }
+
+    throw new Error(errorMessage);
   }
 
   const result: ChatApiResponse = await response.json();

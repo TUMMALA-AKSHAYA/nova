@@ -75,9 +75,9 @@ export default function Products() {
         onChange={setSearch}
       />
 
-      <div className="overflow-hidden rounded-xl border border-slate-700">
+      <div className="overflow-x-auto rounded-xl border border-slate-700">
 
-        <table className="w-full">
+        <table className="w-full min-w-[860px]">
 
           <thead className="bg-slate-900">
             <tr>
@@ -150,6 +150,17 @@ export default function Products() {
               </tr>
 
             ))}
+
+            {filteredProducts.length === 0 && (
+              <tr>
+                <td
+                  colSpan={7}
+                  className="p-8 text-center text-slate-400"
+                >
+                  No products match your search.
+                </td>
+              </tr>
+            )}
 
           </tbody>
 
