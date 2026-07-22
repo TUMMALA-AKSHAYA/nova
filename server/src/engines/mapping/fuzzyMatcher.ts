@@ -1,4 +1,4 @@
-import stringSimilarity from "string-similarity";
+import { distance } from "fastest-levenshtein";
 
 const KNOWN_HEADERS = {
   product: "productName",
@@ -25,22 +25,29 @@ const KNOWN_HEADERS = {
 
   category: "category",
 };
+
 export function fuzzyMatch(header: string) {
   const headers = Object.keys(KNOWN_HEADERS);
 
-  const result = stringSimilarity.findBestMatch(header, headers);
+  let bestTarget = "";
+  let bestDistance = Number.MAX_SAFE_INTEGER;
 
-  // 👇 ADD THIS LINE
-  //WHTAconsole.log(result.bestMatch);
+  for (const h of headers) {
+    const d = distance(header.toLowerCase(), h.toLowerCase());
 
-  if (result.bestMatch.rating < 0.6) {
-    return null;
+    if (d < bestDistance) {
+      bestDistance = d;
+      bestTarget = h;
+    }
   }
+
+  if (bestDistance > 5) return null;
 
   return {
     mappedField:
-      KNOWN_HEADERS[result.bestMatch.target as keyof typeof KNOWN_HEADERS],
-    confidence: result.bestMatch.rating,
+      KNOWN_HEADERS[bestTarget as keyof typeof KNOWN_HEADERS],
+    confidence:
+      1 - bestDistance / Math.max(header.length, bestTarget.length),
     matchedBy: "fuzzy",
   };
 }
