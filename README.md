@@ -1,9 +1,9 @@
 <p align="center">
   <h1 align="center">NOVA</h1>
   <p align="center"><b>AI COO for Retail Operations</b></p>
-  <p align="center"><b>nova-sandy-five.vercel.app
-</b></p>
-  
+  <p align="center">
+  <b><a href="https://vercel.app" target="_blank">nova-sandy-five.vercel.app</a></b>
+</p>
   <p align="center">Transform inventory data into executive decisions in seconds.</p>
   <p align="center">
     <i>Upload inventory → Analyze risks → Prioritize actions → Ask AI → Take action</i>
